@@ -7,18 +7,20 @@ import { Student } from '../student';
   templateUrl: './student-form.component.html',
   styleUrls: ['./student-form.component.css']
 })
-export class ClientFormComponent implements OnChanges{
+export class StudentFormComponent implements OnChanges{
 
   @Input()
   client: Student = {} as Student;
 
   @Output()
   saveEvent = new EventEmitter<Student>();
+  @Output()
+  cleanEvent = new EventEmitter<void>();
 
   formGroupClient: FormGroup;
   submitted: boolean = false;
-
   constructor(private formBuilder: FormBuilder) {
+
     this.formGroupClient = formBuilder.group({
       id: [''],
       name: ['', [Validators.required]],
@@ -30,7 +32,7 @@ export class ClientFormComponent implements OnChanges{
     this.formGroupClient.setValue(this.client);
   }
 
-  save(){
+  save() {
       this.submitted = true;
       if(this.formGroupClient.valid){
         this.saveEvent.emit(this.formGroupClient.value);
@@ -40,6 +42,7 @@ export class ClientFormComponent implements OnChanges{
   }
 
   clean() {
+    this.cleanEvent.emit();
     this.formGroupClient.reset();
     this.submitted = false;
   }
