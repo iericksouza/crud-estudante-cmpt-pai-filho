@@ -10,7 +10,7 @@ import { Student } from '../student';
 export class StudentFormComponent implements OnChanges{
 
   @Input()
-  client: Student = {} as Student;
+  student: Student = {} as Student;
 
   @Output()
   saveEvent = new EventEmitter<Student>();
@@ -24,7 +24,7 @@ export class StudentFormComponent implements OnChanges{
     this.formGroupClient = formBuilder.group({
       id: [''],
       name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email, Validators.phone]]
     });
   }
 
